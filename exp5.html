@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currency Converter</title>
+    <link rel="stylesheet" href="exp5.css">
+    <script src="exp5.js"></script>
+</head>
+
+<body>
+    <div class="converter">
+        <h2>Currency Converter</h2>
+        <input type="number" id="amount" placeholder="Amount" oninput="convert()">
+
+        <label for="from">From:</label>
+        <select id="from" onchange="convert()">
+            <option value="USD">US Dollar (USD)</option>
+            <option value="EUR">Euro (EUR)</option>
+            <option value="GBP">British Pound (GBP)</option>
+            <option value="INR">Indian Rupee (INR)</option>
+        </select>
+
+        <label for="to">To:</label>
+        <select id="to" onchange="convert()">
+            <option value="INR">Indian Rupee (INR)</option>
+            <option value="USD">US Dollar (USD)</option>
+            <option value="EUR">Euro (EUR)</option>
+            <option value="GBP">British Pound (GBP)</option>
+        </select>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        const rates = {
+            "USD": 1,
+            "EUR": 0.92,
+            "GBP": 0.78,
+            "INR": 83.34
+        };
+
+        function convert() {
+            let amount = parseFloat(document.getElementById("amount").value);
+            let from = document.getElementById("from").value;
+            let to = document.getElementById("to").value;
+
+            if (isNaN(amount) || amount <= 0) {
+                document.getElementById("result").innerHTML = "";
+                return;
+            }
+
+            let converted = (amount / rates[from]) * rates[to];
+            document.getElementById("result").innerHTML = `Converted Amount: ${converted.toFixed(2)} ${to}`;
+        }
+    </script>
+</body>
+
+</html>
